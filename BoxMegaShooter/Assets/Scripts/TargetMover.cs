@@ -48,17 +48,17 @@ public class TargetMover : MonoBehaviour
             // rotate around the up axix of the gameObject
             gameObject.transform.Rotate(Vector3.up * spinSpeed * Time.deltaTime);
         }
+        
+        var newZ = gameObject.transform.position.z;
+        var newY = (motionState & motionDirections.Vertical) == 0
+            ? gameObject.transform.position.y
+            : gameObject.transform.position.y + Mathf.Cos(Time.timeSinceLevelLoad) * motionMagnitude;
+        var newX = (motionState & motionDirections.Horizontal) == 0
+            ? gameObject.transform.position.x
+            : gameObject.transform.position.x + Mathf.Cos(Time.timeSinceLevelLoad) * motionMagnitude;
 
-        if ((motionState & motionDirections.Horizontal) != 0)
-        {
-            // move up and down over time
-            gameObject.transform.Translate(Vector3.right * Mathf.Cos(Time.timeSinceLevelLoad) * motionMagnitude);
-        }
-
-        if ((motionState & motionDirections.Vertical) != 0)
-        {
-            // move up and down over time
-            gameObject.transform.Translate(Vector3.up * Mathf.Cos(Time.timeSinceLevelLoad) * motionMagnitude);
-        }
+        var newPosition = new Vector3(newX, newY, newZ);
+       
+        gameObject.transform.position = newPosition;
     }
 }
