@@ -199,7 +199,7 @@ public class CharacterController2D : MonoBehaviour {
 	}
 
 	// do what needs to be done to freeze the player
- 	void FreezeMotion() {
+	void FreezeMotion() {
 		playerCanMove = false;
 		_rigidbody.isKinematic = true;
 	}
