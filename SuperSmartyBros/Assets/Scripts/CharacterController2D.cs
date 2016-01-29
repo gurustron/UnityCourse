@@ -46,6 +46,7 @@ public class CharacterController2D : MonoBehaviour {
 	bool facingRight = true;
 	bool isGrounded = false;
 	bool isRunning = false;
+	private bool _canDoubleJump = false;
 
 	// store the layer the player is on (setup in Awake)
 	int _playerLayer;
@@ -108,19 +109,25 @@ public class CharacterController2D : MonoBehaviour {
 		// whatIsGround layer
 		isGrounded = Physics2D.Linecast(_transform.position, groundCheck.position, whatIsGround);  
 
+		//allow double jump
+		if (isGrounded)
+		{
+			_canDoubleJump = true;
+		}
+
 		// Set the grounded animation states
 		_animator.SetBool("Grounded", isGrounded);
 
 		if(isGrounded && Input.GetButtonDown("Jump")) // If grounded AND jump button pressed, then allow the player to jump
 		{
-			// reset current vertical motion to 0 prior to jump
-			_vy = 0f;
-			// add a force in the up direction
-			_rigidbody.AddForce (new Vector2 (0, jumpForce));
-			// play the jump sound
-			PlaySound(jumpSFX);
+			DoJump();
 		}
-	
+		else if (_canDoubleJump && Input.GetButtonDown("Jump"))
+		{
+			DoJump();
+			_canDoubleJump = false;
+		}
+
 		// If the player stops jumping mid jump and player is not yet falling
 		// then set the vertical velocity to 0 (he will start to fall from gravity)
 		if(Input.GetButtonUp("Jump") && _vy>0f)
@@ -135,6 +142,16 @@ public class CharacterController2D : MonoBehaviour {
 		// this allows the player to jump up through things on the platform layer
 		// NOTE: requires the platforms to be on a layer named "Platform"
 		Physics2D.IgnoreLayerCollision(_playerLayer, _platformLayer, (_vy > 0.0f)); 
+	}
+
+	private void DoJump()
+	{
+// reset current vertical motion to 0 prior to jump
+		_vy = 0f;
+		// add a force in the up direction
+		_rigidbody.AddForce(new Vector2(0, jumpForce));
+		// play the jump sound
+		PlaySound(jumpSFX);
 	}
 
 	// Checking to see if the sprite should be flipped
