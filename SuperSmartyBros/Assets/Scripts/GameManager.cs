@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour {
 	public GameObject[] UIExtraLives;
 	public GameObject UIGamePaused;
 
+	public int MaxLives;
+	public GameObject UIExtraLivesPrefab;
+
 	// private variables
 	GameObject _player;
 	Vector3 _spawnLocation;
@@ -117,8 +120,7 @@ public class GameManager : MonoBehaviour {
 		// set the text elements of the UI
 		UIScore.text = "Score: "+score.ToString();
 		UIHighScore.text = "Highscore: "+highscore.ToString ();
-	    UILevel.text = SceneManager.GetActiveScene().name; //Application.loadedLevelName;
-		
+		UILevel.text = SceneManager.GetActiveScene().name; //Application.loadedLevelName;
 		// turn on the appropriate number of life indicators in the UI based on the number of lives left
 		for(int i=0;i<UIExtraLives.Length;i++) {
 			if (i<(lives-1)) { // show one less than the number of lives since you only typically show lifes after the current life in UI
