@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class CharacterController2D : MonoBehaviour {
@@ -255,7 +256,8 @@ public class CharacterController2D : MonoBehaviour {
 			if (GameManager.gm) // if the gameManager is available, tell it to reset the game
 				GameManager.gm.ResetGame();
 			else // otherwise, just reload the current level
-				Application.LoadLevel(Application.loadedLevelName);
+				//Application.LoadLevel(Application.loadedLevelName);
+				SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 		}
 	}
 

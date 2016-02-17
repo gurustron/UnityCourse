@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI; // include UI namespace so can reference UI elements
 
 public class GameManager : MonoBehaviour {
@@ -67,12 +68,12 @@ public class GameManager : MonoBehaviour {
 		// if levels not specified, default to current level
 		if (levelAfterVictory=="") {
 			Debug.LogWarning("levelAfterVictory not specified, defaulted to current level");
-			levelAfterVictory = Application.loadedLevelName;
+			levelAfterVictory = SceneManager.GetActiveScene().name; //Application.loadedLevelName;
 		}
 		
 		if (levelAfterGameOver=="") {
 			Debug.LogWarning("levelAfterGameOver not specified, defaulted to current level");
-			levelAfterGameOver = Application.loadedLevelName;
+			levelAfterGameOver = SceneManager.GetActiveScene().name; //Application.loadedLevelName;
 		}
 
 		// friendly error messages
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour {
 		// set the text elements of the UI
 		UIScore.text = "Score: "+score.ToString();
 		UIHighScore.text = "Highscore: "+highscore.ToString ();
-		UILevel.text = Application.loadedLevelName;
+	    UILevel.text = SceneManager.GetActiveScene().name; //Application.loadedLevelName;
 		
 		// turn on the appropriate number of life indicators in the UI based on the number of lives left
 		for(int i=0;i<UIExtraLives.Length;i++) {
@@ -155,7 +156,8 @@ public class GameManager : MonoBehaviour {
 			PlayerPrefManager.SavePlayerState(score,highscore,lives);
 
 			// load the gameOver screen
-			Application.LoadLevel (levelAfterGameOver);
+			//Application.LoadLevel (levelAfterGameOver);
+			SceneManager.LoadScene(levelAfterGameOver);
 		} else { // tell the player to respawn
 			_player.GetComponent<CharacterController2D>().Respawn(_spawnLocation);
 		}
@@ -173,6 +175,7 @@ public class GameManager : MonoBehaviour {
 	// load the nextLevel after delay
 	IEnumerator LoadNextLevel() {
 		yield return new WaitForSeconds(3.5f); 
-		Application.LoadLevel (levelAfterVictory);
+		//Application.LoadLevel (levelAfterVictory);
+		SceneManager.LoadScene(levelAfterVictory);
 	}
 }

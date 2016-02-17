@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class MenuPauseAndLoadLevel : MonoBehaviour {
 
@@ -13,6 +14,7 @@ public class MenuPauseAndLoadLevel : MonoBehaviour {
 
 	// load the specified level
 	void LoadLevel() {
-		Application.LoadLevel(levelToLoad);
+		//Application.LoadLevel(levelToLoad);
+		SceneManager.LoadScene(levelToLoad);
 	}
 }

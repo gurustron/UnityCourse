@@ -1,7 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI; // include UI namespace since references UI Buttons directly
-using UnityEngine.EventSystems; // include EventSystems namespace so can set initial input for controller support
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
+
+// include EventSystems namespace so can set initial input for controller support
 
 public class MainMenuManager : MonoBehaviour {
 
@@ -156,7 +159,8 @@ public class MainMenuManager : MonoBehaviour {
 		PlayerPrefManager.ResetPlayerState(startLives,false);
 
 		// load the specified level
-		Application.LoadLevel (leveltoLoad);
+		//Application.LoadLevel (leveltoLoad);
+		SceneManager.LoadScene(leveltoLoad);
 	}
 
 	// quit the game
