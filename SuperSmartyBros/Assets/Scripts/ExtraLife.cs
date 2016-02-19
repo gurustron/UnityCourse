@@ -1,8 +1,7 @@
 ﻿using UnityEngine;
 
-public class Coin : MonoBehaviour
+public class ExtraLife : MonoBehaviour
 {
-	public int coinValue = 1;
 	public bool taken = false;
 	public GameObject explosion;
 
@@ -22,11 +21,10 @@ public class Coin : MonoBehaviour
 			}
 
 			// do the player collect coin thing
-			other.gameObject.GetComponent<CharacterController2D>().CollectCoin(coinValue);
+			other.gameObject.GetComponent<CharacterController2D>().CollectExtraLife();
 
 			// destroy the coin
 			DestroyObject(this.gameObject);
 		}
 	}
-
 }

@@ -95,6 +95,16 @@ public class GameManager : MonoBehaviour {
 		
 		if (UIGamePaused==null)
 			Debug.LogError ("Need to set UIGamePaused on Game Manager.");
+
+		if (ExtraLivesSettings.UIContainer == null)
+		{
+			Debug.LogError("Need to set UIContainer on Game Manager's ExtraLivesSettings.");
+		}
+
+		if (ExtraLivesSettings.UIPrefab == null)
+		{
+			Debug.LogError("Need to set UIPrefab on Game Manager's ExtraLivesSettings.");
+		}
 		
 		// get stored player prefs
 		refreshPlayerState();
@@ -130,7 +140,6 @@ public class GameManager : MonoBehaviour {
 		var livesToShow = lives - 1; // show one less than the number of lives since you only typically show lifes after the current life in UI
 		while (_liveStore.Count < livesToShow)
 		{
-
 			var elIcon = Instantiate(ExtraLivesSettings.UIPrefab);
 			elIcon.transform.SetParent(ExtraLivesSettings.UIContainer.transform);
 			_liveStore.Add(elIcon);
@@ -195,6 +204,17 @@ public class GameManager : MonoBehaviour {
 		yield return new WaitForSeconds(3.5f); 
 		//Application.LoadLevel (levelAfterVictory);
 		SceneManager.LoadScene(levelAfterVictory);
+	}
+
+	public void AddExtraLife()
+	{
+		lives++;
+		if (ExtraLivesSettings.MaxLives < lives)
+		{
+			lives = ExtraLivesSettings.MaxLives;
+		}
+
+		refreshGUI();
 	}
 
 	[System.Serializable]

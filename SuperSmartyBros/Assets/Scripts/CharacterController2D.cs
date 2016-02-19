@@ -291,4 +291,12 @@ public class CharacterController2D : MonoBehaviour {
 	{
 		DoJump();
 	}
+
+	public void CollectExtraLife()
+	{
+		if (GameManager.gm)
+		{
+			GameManager.gm.AddExtraLife();
+		}
+	}
 }
