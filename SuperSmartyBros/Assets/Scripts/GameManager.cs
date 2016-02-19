@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI; // include UI namespace so can reference UI elements
 
@@ -22,15 +24,17 @@ public class GameManager : MonoBehaviour {
 	public Text UIScore;
 	public Text UIHighScore;
 	public Text UILevel;
-	public GameObject[] UIExtraLives;
+	//public GameObject[] UIExtraLives;
 	public GameObject UIGamePaused;
+	public ExtraLivesConfiguration ExtraLivesSettings;
+	
 
-	public int MaxLives;
-	public GameObject UIExtraLivesPrefab;
 
 	// private variables
 	GameObject _player;
 	Vector3 _spawnLocation;
+
+	List<GameObject> _liveStore = new List<GameObject>();
 
 	// set things up here
 	void Awake () {
@@ -122,12 +126,24 @@ public class GameManager : MonoBehaviour {
 		UIHighScore.text = "Highscore: "+highscore.ToString ();
 		UILevel.text = SceneManager.GetActiveScene().name; //Application.loadedLevelName;
 		// turn on the appropriate number of life indicators in the UI based on the number of lives left
-		for(int i=0;i<UIExtraLives.Length;i++) {
-			if (i<(lives-1)) { // show one less than the number of lives since you only typically show lifes after the current life in UI
-				UIExtraLives[i].SetActive(true);
-			} else {
-				UIExtraLives[i].SetActive(false);
-			}
+
+		var livesToShow = lives - 1; // show one less than the number of lives since you only typically show lifes after the current life in UI
+		while (_liveStore.Count < livesToShow)
+		{
+
+			var elIcon = Instantiate(ExtraLivesSettings.UIPrefab);
+			elIcon.transform.SetParent(ExtraLivesSettings.UIContainer.transform);
+			_liveStore.Add(elIcon);
+		}
+
+		foreach (var elIcon in _liveStore.Take(livesToShow))
+		{
+			elIcon.SetActive(true);
+		}
+
+		foreach (var elIcon in _liveStore.Skip(livesToShow))
+		{
+			elIcon.SetActive(false);
 		}
 	}
 
@@ -179,5 +195,13 @@ public class GameManager : MonoBehaviour {
 		yield return new WaitForSeconds(3.5f); 
 		//Application.LoadLevel (levelAfterVictory);
 		SceneManager.LoadScene(levelAfterVictory);
+	}
+
+	[System.Serializable]
+	public class ExtraLivesConfiguration
+	{
+		public int MaxLives;
+		public GameObject UIContainer;
+		public GameObject UIPrefab;
 	}
 }
