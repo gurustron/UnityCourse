@@ -148,10 +148,15 @@ public class CharacterController2D : MonoBehaviour {
 
 	private void DoJump()
 	{
-// reset current vertical motion to 0 prior to jump
+		DoJump(jumpForce);
+	}
+
+	private void DoJump(float force)
+	{
+		// reset current vertical motion to 0 prior to jump
 		_vy = 0f;
 		// add a force in the up direction
-		_rigidbody.AddForce(new Vector2(0, jumpForce));
+		_rigidbody.AddForce(new Vector2(0, force));
 		// play the jump sound
 		PlaySound(jumpSFX);
 	}
@@ -290,6 +295,11 @@ public class CharacterController2D : MonoBehaviour {
 	public void EnemyBounce()
 	{
 		DoJump();
+	}
+
+	public void Bounce(float force)
+	{
+		DoJump(force);
 	}
 
 	public void CollectExtraLife()
