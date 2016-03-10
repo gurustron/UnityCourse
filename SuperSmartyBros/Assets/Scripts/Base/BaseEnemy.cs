@@ -147,22 +147,27 @@ public abstract class BaseEnemy : MonoBehaviour
 			CharacterController2D player = collision.gameObject.GetComponent<CharacterController2D>();
 			if (player.playerCanMove)
 			{
-				// Make sure the enemy is facing the player on attack
-				Flip(collision.transform.position.x - _transform.position.x);
-
-				// attack sound
-				playSound(attackSFX);
-
-				// stop moving
-				_rigidbody.velocity = new Vector2(0, 0);
-
-				// apply damage to the player
-				player.ApplyDamage(damageAmount);
-
-				// stop to enjoy killing the player
-				_moveTime = Time.time + 3f;
+				OnCollisionWithPlayer(collision, player);
 			}
 		}
+	}
+
+	protected virtual void OnCollisionWithPlayer(Collider2D collision, CharacterController2D player)
+	{
+		// Make sure the enemy is facing the player on attack
+		Flip(collision.transform.position.x - _transform.position.x);
+
+		// attack sound
+		playSound(attackSFX);
+
+		// stop moving
+		_rigidbody.velocity = new Vector2(0, 0);
+
+		// apply damage to the player
+		player.ApplyDamage(damageAmount);
+
+		// stop to enjoy killing the player
+		_moveTime = Time.time + 3f;
 	}
 
 	// if the Enemy collides with a MovingPlatform, then make it a child of that platform

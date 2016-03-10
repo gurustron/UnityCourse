@@ -1,28 +1,20 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Mage : MonoBehaviour
+public class Mage : BaseEnemy
 {
-	public int damageAmount = 10; // probably deal a lot of damage to kill player immediately
-
 	public GameObject projectile;
+	public GameObject deathExplosion;
 
-	[Range(0, 10f)]
-	public float moveSpeed = 4f;  // enemy move speed when moving
-	public GameObject[] myWaypoints; // to define the movement waypoints
-	public float waitAtWaypointTime = 1f;   // how long to wait at a waypoint
-	public bool loopWaypoints = true; // should it loop through the waypoints
-
-
-	// Use this for initialization
-	void Start()
+	protected override void OnCollisionWithPlayer(Collider2D collision, CharacterController2D player)
 	{
+		base.OnCollisionWithPlayer(collision, player);
 
-	}
+		if(deathExplosion)
+		{
+			Instantiate(deathExplosion, transform.position, transform.rotation);
+		}
 
-	// Update is called once per frame
-	void Update()
-	{
-
+		Destroy(gameObject);
 	}
 }
