@@ -9,7 +9,7 @@ public class DeathZone : MonoBehaviour
 	// Handle gameobjects collider with a deathzone object
 	void OnCollisionEnter2D(Collision2D other)
 	{
-		if (other.gameObject.tag == "Player")
+		if (other.gameObject.tag == Aliases.Tags.Player)
 		{
 			// if player then tell the player to do its FallDeath
 			other.gameObject.GetComponent<CharacterController2D>().FallDeath();

@@ -18,6 +18,7 @@ public static class Aliases
 	public static class Animator
 	{
 		public const string LookAtEnemy = "LookAtEnemy";
-		public const string Idle = "Idle"; 
+		public const string Idle = "Idle";
+		public const string Moving = "Moving"; 
 	}
 }

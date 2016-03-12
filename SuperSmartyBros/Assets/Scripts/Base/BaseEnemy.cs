@@ -6,7 +6,7 @@ public abstract class BaseEnemy : MonoBehaviour
 	[Range(0, 10f)]
 	public float moveSpeed = 4f;  // enemy move speed when moving
 	public int damageAmount = 10; // probably deal a lot of damage to kill player immediately
-	public string playerLayer = "Player";  // name of the layer to put enemy on when stunned
+	public string playerLayer = Aliases.Layers.Player;  // name of the layer to put enemy on when stunned
 	public GameObject[] myWaypoints; // to define the movement waypoints
 	public float waitAtWaypointTime = 1f;   // how long to wait at a waypoint
 	public bool loopWaypoints = true; // should it loop through the waypoints
@@ -72,7 +72,7 @@ public abstract class BaseEnemy : MonoBehaviour
 		}
 		else
 		{
-			_animator.SetBool("Moving", false);
+			_animator.SetBool(Aliases.Animator.Moving, false);
 		}
 	}
 
@@ -112,7 +112,7 @@ public abstract class BaseEnemy : MonoBehaviour
 			}
 			else {
 				// enemy is moving
-				_animator.SetBool("Moving", true);
+				_animator.SetBool(Aliases.Animator.Moving, true);
 
 				// Set the enemy's velocity to moveSpeed in the x direction.
 				_rigidbody.velocity = new Vector2(_transform.localScale.x * moveSpeed, _rigidbody.velocity.y);
@@ -140,7 +140,7 @@ public abstract class BaseEnemy : MonoBehaviour
 	// Attack player
 	protected virtual void OnTriggerEnter2D(Collider2D collision)
 	{
-		if (collision.tag == "Player")
+		if (collision.tag == Aliases.Tags.Player)
 		{
 			CharacterController2D player = collision.gameObject.GetComponent<CharacterController2D>();
 			if (player.playerCanMove)

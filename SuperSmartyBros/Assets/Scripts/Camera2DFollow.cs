@@ -13,21 +13,22 @@ namespace UnityStandardAssets._2D
         public float lookAheadMoveThreshold = 0.1f;
 
 		// private variables
-        float m_OffsetZ;
-        Vector3 m_LastTargetPosition;
-        Vector3 m_CurrentVelocity;
-        Vector3 m_LookAheadPos;
+        float _offsetZ;
+        Vector3 _lastTargetPosition;
+        Vector3 _currentVelocity;
+        Vector3 _lookAheadPos;
 
         // Use this for initialization
         private void Start()
         {
-            m_LastTargetPosition = target.position;
-            m_OffsetZ = (transform.position - target.position).z;
+            _lastTargetPosition = target.position;
+            _offsetZ = (transform.position - target.position).z;
             transform.parent = null;
 
 			// if target not set, then set it to the player
-			if (target==null) {
-				target = GameObject.FindGameObjectWithTag("Player").transform;
+			if (target==null)
+			{
+				target = GameObject.FindGameObjectWithTag(Aliases.Tags.Player).transform;
 			}
 
 			if (target==null)
@@ -42,25 +43,25 @@ namespace UnityStandardAssets._2D
 				return;
 
             // only update lookahead pos if accelerating or changed direction
-            float xMoveDelta = (target.position - m_LastTargetPosition).x;
+            float xMoveDelta = (target.position - _lastTargetPosition).x;
 
             bool updateLookAheadTarget = Mathf.Abs(xMoveDelta) > lookAheadMoveThreshold;
 
             if (updateLookAheadTarget)
             {
-                m_LookAheadPos = lookAheadFactor*Vector3.right*Mathf.Sign(xMoveDelta);
+                _lookAheadPos = lookAheadFactor*Vector3.right*Mathf.Sign(xMoveDelta);
             }
             else
             {
-				m_LookAheadPos = Vector3.MoveTowards(m_LookAheadPos, Vector3.zero, Time.deltaTime*lookAheadReturnSpeed);
+				_lookAheadPos = Vector3.MoveTowards(_lookAheadPos, Vector3.zero, Time.deltaTime*lookAheadReturnSpeed);
             }
 
-            Vector3 aheadTargetPos = target.position + m_LookAheadPos + Vector3.forward*m_OffsetZ;
-            Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref m_CurrentVelocity, damping);
+			Vector3 aheadTargetPos = target.position + _lookAheadPos + Vector3.forward*_offsetZ;
+            Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref _currentVelocity, damping);
 
             transform.position = newPos;
 
-            m_LastTargetPosition = target.position;
+            _lastTargetPosition = target.position;
         }
     }
 }

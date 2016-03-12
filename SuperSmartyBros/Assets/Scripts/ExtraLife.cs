@@ -9,7 +9,7 @@ public class ExtraLife : MonoBehaviour
 	// then take the coin
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		if ((other.tag == "Player") && (!taken) && (other.gameObject.GetComponent<CharacterController2D>().playerCanMove))
+		if ((other.tag == Aliases.Tags.Player) && (!taken) && (other.gameObject.GetComponent<CharacterController2D>().playerCanMove))
 		{
 			// mark as taken so doesn't get taken multiple times
 			taken = true;
