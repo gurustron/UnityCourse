@@ -90,6 +90,7 @@
     <Compile Include="Assets\Scripts\ScreenshotUtility.cs" />
     <Compile Include="Assets\Scripts\TimedObjectDestructor.cs" />
     <Compile Include="Assets\Scripts\Victory.cs" />
+    <Compile Include="Assets\DeveloperUtilities\Aliases.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Standard Assets\CrossPlatformInput\CrossPlatformInputGuidelines.txt" />

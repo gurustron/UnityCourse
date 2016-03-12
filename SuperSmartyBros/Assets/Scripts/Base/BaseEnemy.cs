@@ -54,8 +54,6 @@ public abstract class BaseEnemy : MonoBehaviour
 			_audio = gameObject.AddComponent<AudioSource>();
 		}
 
-
-
 		// setup moving defaults
 		_moveTime = 0f;
 		_moving = true;
