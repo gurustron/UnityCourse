@@ -18,13 +18,11 @@ public class Mage : BaseEnemy
 
 	private static readonly LayerMask NotTransparentLayers;
 	
-
 	static Mage()
 	{
 		NotTransparentLayers = LayerMask.GetMask(Aliases.Layers.Ground, Aliases.Layers.Platform, Aliases.Layers.Player);
 	}
-
-
+	
 	protected override void Awake()
 	{
 		base.Awake();
