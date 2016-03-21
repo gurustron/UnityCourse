@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Projectile : MonoBehaviour
 {
+	public int damageAmount = 10;
 	[HideInInspector]
 	public bool isEnemyProjectile;
 
@@ -20,6 +21,10 @@ public class Projectile : MonoBehaviour
 				{
 					Debug.Log("Missing projectile animator");
 				}
+
+				var player = collision.gameObject.GetComponent<CharacterController2D>();
+
+				player.ApplyDamage(damageAmount);
 
 				//Destroy(gameObject);
 				break;
