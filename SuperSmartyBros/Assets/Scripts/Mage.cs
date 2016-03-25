@@ -111,7 +111,17 @@ public class Mage : BaseEnemy
 	{
 		base.OnCollisionWithPlayer(collision, player);
 
-		if(deathExplosion)
+		MageDeath();
+	}
+
+	public override void OnHeadCollision()
+	{
+		MageDeath();
+	}
+
+	private void MageDeath()
+	{
+		if (deathExplosion)
 		{
 			Instantiate(deathExplosion, transform.position, transform.rotation);
 		}

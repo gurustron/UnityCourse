@@ -11,7 +11,9 @@ public abstract class BaseEnemy : MonoBehaviour
 	public float waitAtWaypointTime = 1f;   // how long to wait at a waypoint
 	public bool loopWaypoints = true; // should it loop through the waypoints
 
-	// SFXs
+	[Tooltip("Child GameObject to detect stun")]
+	public GameObject headCheck; // what gameobject is the stunnedCheck
+									// SFXs
 	public AudioClip stunnedSFX;
 	public AudioClip attackSFX;
 
@@ -193,4 +195,5 @@ public abstract class BaseEnemy : MonoBehaviour
 		_audio.PlayOneShot(clip);
 	}
 
+	public abstract void OnHeadCollision();
 }

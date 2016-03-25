@@ -5,9 +5,6 @@ using System.Collections;
 
 public class Enemy : BaseEnemy
 {
-	[Tooltip("Child GameObject to detect stun")]
-	public GameObject stunnedCheck; // what gameobject is the stunnedCheck
-
 	public float stunnedTime = 3f;   // how long to be stunned
 
 	public string stunnedLayer = "StunnedEnemy";  // name of the layer to put maenemy on when stunned
@@ -21,7 +18,7 @@ public class Enemy : BaseEnemy
 	{
 		base.Awake();
 
-		if (stunnedCheck == null)
+		if (headCheck == null)
 		{
 			Debug.LogError("stunnedCheck child gameobject needs to be setup on the enemy");
 		}
@@ -50,7 +47,7 @@ public class Enemy : BaseEnemy
 	}
 
 	// setup the enemy to be stunned
-	public void Stunned()
+	public override void OnHeadCollision()
 	{
 		if (!isStunned)
 		{
@@ -65,7 +62,7 @@ public class Enemy : BaseEnemy
 
 			// switch layer to stunned layer so no collisions with the player while stunned
 			this.gameObject.layer = _stunnedLayer;
-			stunnedCheck.layer = _stunnedLayer;
+			headCheck.layer = _stunnedLayer;
 
 			// start coroutine to stand up eventually
 			StartCoroutine(Stand());
@@ -82,7 +79,7 @@ public class Enemy : BaseEnemy
 
 		// switch layer back to regular layer for regular collisions with the player
 		this.gameObject.layer = _enemyLayer;
-		stunnedCheck.layer = _enemyLayer;
+		headCheck.layer = _enemyLayer;
 
 		// provide the player with feedback
 		_animator.SetTrigger("Stand");
