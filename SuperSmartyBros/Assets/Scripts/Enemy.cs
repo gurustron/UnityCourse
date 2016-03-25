@@ -18,10 +18,6 @@ public class Enemy : BaseEnemy
 	{
 		base.Awake();
 
-		if (headCheck == null)
-		{
-			Debug.LogError("stunnedCheck child gameobject needs to be setup on the enemy");
-		}
 		// determine the stunned enemy layer number
 		_stunnedLayer = LayerMask.NameToLayer(stunnedLayer);
 

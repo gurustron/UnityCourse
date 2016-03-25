@@ -56,6 +56,11 @@ public abstract class BaseEnemy : MonoBehaviour
 			_audio = gameObject.AddComponent<AudioSource>();
 		}
 
+		if (headCheck == null)
+		{
+			Debug.LogError("stunnedCheck child gameobject needs to be setup on the enemy");
+		}
+
 		// setup moving defaults
 		_moveTime = 0f;
 		_moving = true;
