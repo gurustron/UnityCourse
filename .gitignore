@@ -63,3 +63,13 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 *.suo
+SuperSmartyBros/Distribution/index.html
+SuperSmartyBros/_Builds/SuperSmartyBrosWebPC/SuperSmartyBrosWindows_Data/sharedassets4.assets
+SuperSmartyBros/_Builds/
+SuperSmartyBros/Distribution/
+SuperSmartyBros/_Builds/SuperSmartyBrosWebGL/Release/SuperSmartyBrosWebGL.datagz
+SuperSmartyBros/Screenshots/Screenshot_1366x637_3.png
+SuperSmartyBros/Distribution/
+SuperSmartyBros/Screenshots/Screenshot_1366x637_1.png
+SuperSmartyBros/SuperSmartyBros.zip
+SuperSmartyBros/_Builds/SuperSmartyBrosWebGL/Release/UnityLoader.js

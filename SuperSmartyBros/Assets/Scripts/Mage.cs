@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class Mage : BaseEnemy
 {
@@ -17,7 +18,8 @@ public class Mage : BaseEnemy
 	private float _timeNotShooting;
 
 	private static readonly LayerMask NotTransparentLayers;
-	
+	private bool _firstShotFired;
+
 	static Mage()
 	{
 		NotTransparentLayers = LayerMask.GetMask(Aliases.Layers.Ground, Aliases.Layers.Platform, Aliases.Layers.Player);
@@ -64,8 +66,7 @@ public class Mage : BaseEnemy
 				}
 
 				_timeNotShooting += Time.deltaTime;
-
-				if (projectile && rateOfFire > 0 && _timeNotShooting >= 1/rateOfFire)
+				if (projectile && rateOfFire > 0 && ( (!_firstShotFired && _timeNotShooting >= 0.2 / rateOfFire) || _timeNotShooting >= 1/rateOfFire))
 				{
 					var newProjectile = (GameObject)Instantiate(projectile, magePosition, transform.rotation);
 
@@ -89,7 +90,7 @@ public class Mage : BaseEnemy
 					// Apply force to the newProjectile's Rigidbody component if it has one
 
 					rigidBody.AddForce(new Vector3(rayDirection.x, 0).normalized*power);
-
+					_firstShotFired = true;
 					_timeNotShooting = 0;
 				}
 
@@ -102,6 +103,7 @@ public class Mage : BaseEnemy
 					_enemyIsSeen = false;
 					_animator.SetTrigger(Aliases.Animator.Idle);
 					_timeNotShooting = 0;
+					_firstShotFired = false;
 				}
 			}
 		}
